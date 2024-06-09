@@ -101,3 +101,23 @@ button {
 button:hover {
   background: #4cae4c;
 }
+
+.error {
+  color: #ff2200;
+  margin-top: 10px;
+}
+
+.footer-inscription,
+.footer-connexion {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.footer-inscription a,
+.footer-connexion a {
+  color: black;
+}
+
+.footer-connexion {
+  line-height: 30px;
+}

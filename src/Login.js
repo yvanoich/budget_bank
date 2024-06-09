@@ -25,6 +25,8 @@ function Login() {
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
+                        placeholder="Nom d'utilisateur"
+                        required
                     />
                 </div>
                 <div>
@@ -33,9 +35,15 @@ function Login() {
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        placeholder='Mot de passe'
+                        required
                     />
                 </div>
                 <button type="submit">Se connecter</button>
+                <div className="footer-connexion">
+                    <a href="#">Mot de passe oublié</a><br />
+                    Pas encore de compte ? <a href="/register">Inscrivez-vous</a>
+                </div>
             </form>
         </div>
     );

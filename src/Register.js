@@ -3,15 +3,49 @@ import axios from 'axios';
 
 function Register() {
     const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setconfirmPassword] = useState('');
+    const [error, setError] = useState('');
+
+    const validateEmail = (email) => {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(String(email).toLowerCase());
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError('');
         try {
-            const response = await axios.post('/api/auth/register', { username, password });
-            console.log(response.data);
+            console.log("envoi de l'inscription");
+
+            if (!username) {
+                setError('Le nom d\'utilisateur est obligatoire.');
+                return;
+            }
+
+            if (!validateEmail(email)) {
+                setError('L\'adresse email n\'est pas valide.');
+                return;
+            }
+
+            if (!password || !confirmPassword) {
+                setError('Le mot de passe est obligatoire.');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                setError('Les mots de passe ne correspondent pas.');
+                return;
+            }
+
+            const response = await axios.post('/api/auth/register', { username, email, password, confirmPassword });
+
+            // Redirection vers la page de login après succès
+            window.location.href = '/login';
+
         } catch (error) {
-            console.error(error);
+            setError(error.response.data.error);
         }
     };
 
@@ -20,22 +54,52 @@ function Register() {
             <h2>Inscription</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Nom d'utilisateur:</label>
+                    <label>Nom d'utilisateur :</label>
                     <input
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
+                        placeholder="Nom d'utilisateur"
+                        required
                     />
                 </div>
                 <div>
-                    <label>Mot de passe:</label>
+                    <label>E-mail :</label>
+                    <input
+                        type="text"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder='E-mail'
+                        required
+                    />
+                </div>
+                <div>
+                    <label>Mot de passe :</label>
                     <input
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        placeholder='Mot de passe'
+                        required
+                    />
+                </div>
+                <div>
+                    <label>Confirmer le mot de passe :</label>
+                    <input
+                        type="password"
+                        value={confirmPassword}
+                        onChange={(e) => setconfirmPassword(e.target.value)}
+                        placeholder='Mot de passe'
+                        required
                     />
                 </div>
                 <button type="submit">S'inscrire</button>
+                <div className="error">
+                    {error}
+                </div>
+                <div className='footer-inscription'>
+                    Déjà un compte ? <a href="/login">Connectez-vous</a>
+                </div>
             </form>
         </div>
     );
