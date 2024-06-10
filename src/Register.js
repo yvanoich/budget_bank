@@ -1,7 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function Register() {
+
+    useEffect(() => {
+        // On récupère le token dans le localSorage
+        const token = localStorage.getItem('token');
+
+        if (token) {
+            // Rediriger vers la page de tableau de bord si un token est présent
+            window.location.href = '/dashboard';
+        }
+    }, []);
+
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -17,8 +28,6 @@ function Register() {
         e.preventDefault();
         setError('');
         try {
-            console.log("envoi de l'inscription");
-
             if (!username) {
                 setError('Le nom d\'utilisateur est obligatoire.');
                 return;
@@ -39,7 +48,7 @@ function Register() {
                 return;
             }
 
-            const response = await axios.post('/api/auth/register', { username, email, password, confirmPassword });
+            await axios.post('/api/auth/register', { username, email, password, confirmPassword });
 
             // Redirection vers la page de login après succès
             window.location.href = '/login';

@@ -7,7 +7,6 @@ const router = express.Router();
 // Inscription
 router.post('/register', async (req, res) => {
     const { username, email, password, confirmPassword } = req.body;
-    return res.status(400).json({ error: "L'e-mail n'est pas correct" });
 
     // Vérification que le mot de passe et la confirmation correspondent
     if (password !== confirmPassword) {
@@ -81,6 +80,12 @@ router.post('/login', (req, res) => {
         const token = jwt.sign({ id: user.id }, 'secretkey', { expiresIn: '1h' });
         res.json({ token });
     });
+});
+
+router.post('/logout', (req, res) => {
+    // Supprimer un cookie de session, si applicable
+    res.clearCookie('session');
+    res.json({ message: 'Déconnexion réussie' });
 });
 
 module.exports = router;

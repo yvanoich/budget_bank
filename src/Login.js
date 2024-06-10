@@ -1,7 +1,18 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import axios from './axiosConfig';
 
 function Login() {
+
+    useEffect(() => {
+        // On récupère le token dans le localSorage
+        const token = localStorage.getItem('token');
+
+        if (token) {
+            // Rediriger vers la page de tableau de bord si un token est présent
+            window.location.href = '/dashboard';
+        }
+    }, []);
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -9,7 +20,12 @@ function Login() {
         e.preventDefault();
         try {
             const response = await axios.post('/api/auth/login', { username, password });
-            console.log(response.data); // Le token JWT est ici
+
+            // Stocker le token dans le localStorage
+            localStorage.setItem('token', response.data.token);
+
+            // Redirection vers la page de login après succès
+            window.location.href = '/dashboard';
         } catch (error) {
             console.error(error);
         }
