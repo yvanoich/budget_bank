@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { isTokenValid } from '../utils/auth';
 import axios from 'axios';
 
 function Register() {
 
-    useEffect(() => {
-        // On récupère le token dans le localSorage
-        const token = localStorage.getItem('token');
+    const navigate = useNavigate();
 
-        if (token) {
-            // Rediriger vers la page de tableau de bord si un token est présent
-            window.location.href = '/dashboard';
-        }
-    }, []);
+    useEffect(() => {
+        const checkTokenValidity = async () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                const isValid = await isTokenValid(token);
+                if (isValid) {
+                    navigate('/dashboard'); // Rediriger vers le tableau de bord si le token est valide
+                }
+            }
+        };
+
+        checkTokenValidity();
+    }, [navigate]);
 
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
