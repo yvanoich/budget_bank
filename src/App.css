@@ -1,3 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+}
+
 .App {
   text-align: center;
 }
@@ -13,21 +28,6 @@
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -38,25 +38,101 @@
   }
 }
 
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f7f6;
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #282c34;
+  width: 100%;
+}
+
+.logo {
+  color: white;
+  font-size: 1.5em;
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+}
+
+nav ul li {
+  margin: 0 10px;
+}
+
+nav ul li a,
+nav ul li .logout-button {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2em;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  text-decoration: underline;
+}
+
+main {
+  flex-grow: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin: 0;
+  padding: 20px;
+  text-align: center;
+}
+
+.accounts-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.add-box {
+  width: 200px;
+  height: 100px;
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 1.2em;
+  text-align: center;
+  line-height: 1.2;
+  border: 2px solid #4CAF50;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  padding: 10px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.add-box:hover {
+  background-color: #4CAF50;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
 }
 
 form {
   background: #ffffff;
   max-width: 400px;
-  margin: 20px;
+  margin: 20px auto;
+  margin-top: 100px;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   width: 100%;
 }
+
+
 
 h2 {
   margin-bottom: 20px;

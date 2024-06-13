@@ -68,8 +68,7 @@ function Register() {
 
     return (
         <div>
-            <h2>Inscription</h2>
-            <form onSubmit={handleSubmit}>
+            <form className="form-centered" onSubmit={handleSubmit}>
                 <div>
                     <label>Nom d'utilisateur :</label>
                     <input
